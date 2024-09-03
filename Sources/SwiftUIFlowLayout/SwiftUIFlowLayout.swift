@@ -2,7 +2,7 @@ import SwiftUI
 
 public let flowLayoutDefaultItemSpacing: CGFloat = 4
 
-public struct FlowLayout<Trigger, Data: Collection, Content: View>: View {
+public struct FlowLayout<Trigger, Data, Content>: View where Data: Collection, Content: View {
   let mode: Mode
   @Binding var trigger: Trigger
   let data: Data
