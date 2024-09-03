@@ -79,6 +79,8 @@ public struct FlowLayout<Trigger, Data, Content>: View where Data: RandomAccessC
   }
 }
 
+// MARK: View Height Utiliteis
+
 private struct HeightPreferenceKey: PreferenceKey {
   static func reduce(value _: inout CGFloat, nextValue _: () -> CGFloat) {}
   static var defaultValue: CGFloat = 0
@@ -97,6 +99,7 @@ private struct HeightReaderView: View {
   }
 }
 
+// MARK: Trigger-less Convenience Initializer
 
 public extension FlowLayout where Trigger == Never? {
     init(mode: Mode,
@@ -110,6 +113,8 @@ public extension FlowLayout where Trigger == Never? {
                   content: content)
     }
 }
+
+// MARK: - Testing Previews
 
 private var sampleData = [
     "Some long item here", "And then some longer one",
@@ -174,7 +179,7 @@ struct TestWithRange_Previews: PreviewProvider {
     }
 }
 
-// MARK: Migration Helpers
+// MARK: - Migration Helpers
 
 public extension FlowLayout {
     @available(swift, obsoleted: 1.1.0, renamed: "attemptConnection")
