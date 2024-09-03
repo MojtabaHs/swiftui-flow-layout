@@ -48,7 +48,7 @@ public struct FlowLayout<Trigger, Data, Content>: View where Data: RandomAccessC
         ForEach(Array(data.enumerated()), id: \.offset) { index, item in
             content(item)
               .padding([.horizontal, .vertical], spacing)
-              .alignmentGuide(.leading, computeValue: { d in
+              .alignmentGuide(.leading) { d in
                 if (abs(width - d.width) > g.size.width) {
                   width = 0
                   height -= lastHeight
@@ -61,14 +61,14 @@ public struct FlowLayout<Trigger, Data, Content>: View where Data: RandomAccessC
                   width -= d.width
                 }
                 return result
-              })
-              .alignmentGuide(.top, computeValue: { d in
+              }
+              .alignmentGuide(.top) { d in
                 let result = height
                 if index == itemCount - 1 {
                   height = 0
                 }
                 return result
-              })
+              }
         }
       }
       .background(HeightReaderView(trigger: $totalHeight))
