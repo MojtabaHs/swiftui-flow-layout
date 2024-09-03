@@ -10,19 +10,19 @@ public let flowLayoutDefaultItemSpacing: CGFloat = 4
 public struct FlowLayout<Trigger, Data, Content>: View where Data: Collection, Content: View {
 
   /// The layout mode: `scrollable` or `vstack`.
-  let mode: Mode
+  private let mode: Mode
 
   /// A binding to a trigger that updates the layout when its value changes.
   @Binding var trigger: Trigger
 
   /// The data to be displayed in the layout.
-  let data: Data
+  private let data: Data
 
   /// The spacing between items in the layout. Defaults to `flowLayoutDefaultItemSpacing`.
-  let spacing: CGFloat
+  private let spacing: CGFloat
 
   /// A closure that generates the content for each item in the layout.
-  @ViewBuilder let content: (Data.Element) -> Content
+  @ViewBuilder private let content: (Data.Element) -> Content
 
   /// The total height of the layout. Managed internally to accommodate different modes.
   @State private var totalHeight: CGFloat
