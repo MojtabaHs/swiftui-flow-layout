@@ -39,7 +39,7 @@ public struct FlowLayout<Trigger, Data, Content>: View where Data: RandomAccessC
     }
   }
 
-  private func content(in g: GeometryProxy) -> some View {
+  private func content(in proxy: GeometryProxy) -> some View {
     var width = CGFloat.zero
     var height = CGFloat.zero
     var lastHeight = CGFloat.zero
@@ -48,21 +48,21 @@ public struct FlowLayout<Trigger, Data, Content>: View where Data: RandomAccessC
         ForEach(Array(data.enumerated()), id: \.offset) { index, item in
             content(item)
               .padding([.horizontal, .vertical], spacing)
-              .alignmentGuide(.leading) { d in
-                if (abs(width - d.width) > g.size.width) {
+              .alignmentGuide(.leading) { dimensions in
+                if (abs(width - dimensions.width) > proxy.size.width) {
                   width = 0
                   height -= lastHeight
                 }
-                lastHeight = d.height
+                lastHeight = dimensions.height
                 let result = width
                 if index == itemCount - 1 {
                   width = 0
                 } else {
-                  width -= d.width
+                  width -= dimensions.width
                 }
                 return result
               }
-              .alignmentGuide(.top) { d in
+              .alignmentGuide(.top) { _ in
                 let result = height
                 if index == itemCount - 1 {
                   height = 0
