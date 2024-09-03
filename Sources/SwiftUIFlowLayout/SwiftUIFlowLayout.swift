@@ -111,12 +111,16 @@ public extension FlowLayout where Trigger == Never? {
     }
 }
 
+private var sampleData = [
+    "Some long item here", "And then some longer one",
+    "Short", "Items", "Here", "And", "A", "Few", "More",
+    "And then a very very very long long long long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long long long one", "and", "then", "some", "short short short ones"
+]
+
 struct FlowLayout_Previews: PreviewProvider {
   static var previews: some View {
     FlowLayout(mode: .scrollable,
-               data: ["Some long item here", "And then some longer one",
-                      "Short", "Items", "Here", "And", "A", "Few", "More",
-                      "And then a very very very long long long long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long long long one", "and", "then", "some", "short short short ones"]) {
+               data: sampleData) {
       Text($0)
         .font(.system(size: 12))
         .foregroundColor(.black)
@@ -129,19 +133,15 @@ struct FlowLayout_Previews: PreviewProvider {
 }
 
 struct TestWithDeletion: View {
-    @State private var data = ["Some long item here", "And then some longer one",
-                                "Short", "Items", "Here", "And", "A", "Few", "More",
-                                "And then a very very very long long long long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long long long one", "and", "then", "some", "short short short ones"]
-    
+    @State private var data = sampleData
+
     var body: some View {
         VStack {
         Button("Delete all") {
             data.removeAll()
         }
             Button("Restore") {
-                data = ["Some long item here", "And then some longer one",
-                         "Short", "Items", "Here", "And", "A", "Few", "More",
-                         "And then a very very very long long long long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long long long one", "and", "then", "some", "short short short ones"]
+                data = sampleData
             }
             Button("Add one") {
                 data.append("\(Date().timeIntervalSince1970)")
