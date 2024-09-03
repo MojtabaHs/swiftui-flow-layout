@@ -117,17 +117,21 @@ private var sampleData = [
     "And then a very very very long long long long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long longlong long long long long long long long one", "and", "then", "some", "short short short ones"
 ]
 
-struct FlowLayout_Previews: PreviewProvider {
-  static var previews: some View {
-    FlowLayout(mode: .scrollable,
-               data: sampleData) {
-      Text($0)
+private func text(_ data: Any) -> some View {
+    Text(String(describing: data))
         .font(.system(size: 12))
         .foregroundColor(.black)
         .padding()
         .background(RoundedRectangle(cornerRadius: 4)
-                               .border(Color.gray)
-                               .foregroundColor(Color.gray))
+            .border(Color.gray)
+            .foregroundColor(Color.gray))
+}
+
+struct FlowLayout_Previews: PreviewProvider {
+  static var previews: some View {
+    FlowLayout(mode: .scrollable,
+               data: sampleData) {
+        text($0)
     }.padding()
   }
 }
@@ -149,13 +153,7 @@ struct TestWithDeletion: View {
         FlowLayout(mode: .vstack,
                    data: data) {
 
-          Text($0)
-            .font(.system(size: 12))
-            .foregroundColor(.black)
-            .padding()
-            .background(RoundedRectangle(cornerRadius: 4)
-                                   .border(Color.gray)
-                                   .foregroundColor(Color.gray))
+          text($0)
         }.padding()
         }
     }
@@ -171,13 +169,7 @@ struct TestWithRange_Previews: PreviewProvider {
     static var previews: some View {
         FlowLayout(mode: .scrollable,
                    data: 1..<100) {
-            Text("\($0)")
-                .font(.system(size: 12))
-                .foregroundColor(.black)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 4)
-                    .border(Color.gray)
-                    .foregroundColor(Color.gray))
+            text($0)
         }.padding()
     }
 }
