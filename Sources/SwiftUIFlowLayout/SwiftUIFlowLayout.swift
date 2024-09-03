@@ -134,10 +134,10 @@ private func text(_ data: Any) -> some View {
 
 struct FlowLayout_Previews: PreviewProvider {
   static var previews: some View {
-    FlowLayout(mode: .scrollable,
-               data: sampleData) {
-        text($0)
-    }.padding()
+      FlowLayout(mode: .scrollable, data: sampleData) {
+          text($0)
+      }
+      .padding()
   }
 }
 
@@ -146,20 +146,19 @@ struct TestWithDeletion: View {
 
     var body: some View {
         VStack {
-        Button("Delete all") {
-            data.removeAll()
-        }
+            Button("Delete all") {
+                data.removeAll()
+            }
             Button("Restore") {
                 data = sampleData
             }
             Button("Add one") {
                 data.append("\(Date().timeIntervalSince1970)")
             }
-        FlowLayout(mode: .vstack,
-                   data: data) {
-
-          text($0)
-        }.padding()
+            FlowLayout(mode: .vstack, data: data) {
+                text($0)
+            }
+            .padding()
         }
     }
 }
