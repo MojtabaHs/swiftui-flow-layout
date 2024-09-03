@@ -1,16 +1,40 @@
 import SwiftUI
 
+/// Default item spacing for `FlowLayout`.
 public let flowLayoutDefaultItemSpacing: CGFloat = 4
 
+/// A flexible flow layout that arranges items in a grid-like format with dynamic spacing and content.
+///
+/// `FlowLayout` supports various hashable collections (e.g., arrays, ranges, sets) and provides options for scrollable or stack-based layouts.
+/// You can optionally specify the spacing between items, allowing the layout to use the system's default spacing if needed.
 public struct FlowLayout<Trigger, Data, Content>: View where Data: Collection, Content: View {
+
+  /// The layout mode: `scrollable` or `vstack`.
   let mode: Mode
+
+  /// A binding to a trigger that updates the layout when its value changes.
   @Binding var trigger: Trigger
+
+  /// The data to be displayed in the layout.
   let data: Data
+
+  /// The spacing between items in the layout. Defaults to `flowLayoutDefaultItemSpacing`.
   let spacing: CGFloat
+
+  /// A closure that generates the content for each item in the layout.
   @ViewBuilder let content: (Data.Element) -> Content
 
+  /// The total height of the layout. Managed internally to accommodate different modes.
   @State private var totalHeight: CGFloat
 
+  /// Initializes a new `FlowLayout` with the given parameters.
+  ///
+  /// - Parameters:
+  ///   - mode: The layout mode, either `scrollable` or `vstack`.
+  ///   - trigger: A binding to a trigger that updates the layout.
+  ///   - data: The data to be displayed in the layout.
+  ///   - spacing: The spacing between items in the layout. Defaults to `flowLayoutDefaultItemSpacing`.
+  ///   - content: A closure that generates the content for each item.
   public init(mode: Mode,
               trigger: Binding<Trigger>,
               data: Data,
@@ -74,18 +98,21 @@ public struct FlowLayout<Trigger, Data, Content>: View where Data: Collection, C
     .background(HeightReaderView(trigger: $totalHeight))
   }
 
+  /// Represents the available layout modes for `FlowLayout`.
   public enum Mode {
     case scrollable, vstack
   }
 }
 
-// MARK: View Height Utiliteis
+// MARK: View Height Utilities
 
+/// PreferenceKey for capturing view height.
 private struct HeightPreferenceKey: PreferenceKey {
   static func reduce(value _: inout CGFloat, nextValue _: () -> CGFloat) {}
   static var defaultValue: CGFloat = 0
 }
 
+/// A view that reads its height and triggers a binding when it changes.
 private struct HeightReaderView: View {
   @Binding var trigger: CGFloat
   var body: some View {
@@ -99,9 +126,17 @@ private struct HeightReaderView: View {
   }
 }
 
-// MARK: Trigger-less Convenience Initializer
+// MARK: - Trigger-less Convenience Initializer
 
 public extension FlowLayout where Trigger == Never? {
+
+  /// A convenience initializer for `FlowLayout` that doesn't require a trigger.
+  ///
+  /// - Parameters:
+  ///   - mode: The layout mode, either `scrollable` or `vstack`.
+  ///   - data: The data to be displayed in the layout.
+  ///   - spacing: The spacing between items in the layout. Defaults to `flowLayoutDefaultItemSpacing`.
+  ///   - content: A closure that generates the content for each item.
   init(mode: Mode,
        data: Data,
        spacing: CGFloat = flowLayoutDefaultItemSpacing,
