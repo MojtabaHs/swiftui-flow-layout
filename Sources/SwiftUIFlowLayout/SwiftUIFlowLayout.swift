@@ -162,9 +162,11 @@ private func text(_ data: Any) -> some View {
     .font(.system(size: 12))
     .foregroundColor(.black)
     .padding()
-    .background(RoundedRectangle(cornerRadius: 4)
-      .border(Color.gray)
-      .foregroundColor(Color.gray))
+    .background(
+      RoundedRectangle(cornerRadius: 4)
+        .border(Color.gray)
+        .foregroundColor(Color.gray)
+    )
 }
 
 struct FlowLayout_Previews: PreviewProvider {
