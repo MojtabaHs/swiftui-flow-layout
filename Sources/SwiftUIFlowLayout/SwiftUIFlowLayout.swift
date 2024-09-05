@@ -5,9 +5,9 @@ public let flowLayoutDefaultItemSpacing: CGFloat = 4
 
 /// A flexible flow layout that arranges items in a grid-like format with dynamic spacing and content.
 ///
-/// `FlowLayout` supports various hashable collections (e.g., arrays, ranges, sets) and provides options for scrollable or stack-based layouts.
+/// `FlowLayout` supports any collections (e.g., arrays, ranges, sets) and provides options for scrollable or stack-based layouts.
 /// You can optionally specify the spacing between items, allowing the layout to use the system's default spacing if needed.
-public struct FlowLayout<Trigger, Data, Content>: View where Data: RandomAccessCollection, Content: View {
+public struct FlowLayout<Trigger, Data, Content>: View where Data: Collection, Content: View {
 
   /// The layout mode: `scrollable` or `vstack`.
   private let mode: Mode
